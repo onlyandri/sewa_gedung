@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label>Nama Lengkap</label>
                             <input class="form-control valid" name="nama" id="nama" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama Lengkap'" placeholder="Nama Lengkap" required>
-                             <input class="form-control valid" name="nomor_sewa" id="nomor_sewa" type="hidden" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama Lengkap'" placeholder="Nama Lengkap" value="<?php echo $kode ?>" required>
+                             <input class="form-control valid" name="nomor_reservasi" id="nomor_reservasi" type="hidden" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama Lengkap'" placeholder="Nama Lengkap" value="<?php echo $kode ?>" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -54,7 +54,7 @@
                        <div class="col-sm-6">
                         <div class="form-group">
                             <label>Harga Sebelum Diskon</label>
-                            <input class="form-control valid" name="total_bayar" id="total_bayar" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" value="Rp <?=  number_format($harga['harga_sewa'],0,'.','.')?>" readonly required>
+                            <input class="form-control valid" name="total_bayar" id="total_bayar" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" value="Rp <?=  number_format($harga['harga_reservasi'],0,'.','.')?>" readonly required>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -72,8 +72,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Lama Reservasi</label>
-                            <input class="form-control valid" name="lama_sewa" id="lama_sewa" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" readonly required>
-                            <input class="form-control valid" name="lama_sewa1" id="lama_sewa1" type="hidden" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" readonly required>
+                            <input class="form-control valid" name="lama_reservasi" id="lama_reservasi" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" readonly required>
+                            <input class="form-control valid" name="lama_reservasi1" id="lama_reservasi1" type="hidden" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" readonly required>
                         </div>
                     </div>
                     <div class="col-sm-6">

@@ -51,7 +51,7 @@
                 <?php
                 foreach ($gedung as $d) : 
 
-                   $harga = number_format($d->harga_sewa,0,'.','.'); ?>
+                   $harga = number_format($d->harga_reservasi,0,'.','.'); ?>
                    <div class="col-xl-4 col-lg-4 col-md-6" style="display: flex; flex-wrap:wrap">
                     <div class="single-card text-center mb-30" style="width: 100%">
                         <div class="card-top">
@@ -64,7 +64,7 @@
                                 <li>Minimal Reservasi <?php echo $diskon['hari'] ?> hari</li>
                                 <li><span style="font-size: 18px; font-weight:500">Fasilitas : </span><?php echo $d->fasilitas ?></li>
                             </ul>
-                            <a href="<?php echo base_url('user/sewa/'.$d->id_gedung) ?>" class="btn card-btn1">Reservasi</a>
+                            <a href="<?php echo base_url('user/reservasi/'.$d->id_gedung) ?>" class="btn card-btn1">Reservasi</a>
                         </div>
                     </div>
                 </div>

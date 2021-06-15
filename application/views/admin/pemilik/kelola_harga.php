@@ -16,7 +16,7 @@
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="h4">Layanan  <?php echo $h->nama_gedung ?></div>
-							<div class="h4">Rp <?php echo number_format($h->harga_sewa,0,'.','.') ?>/hari</div>
+							<div class="h4">Rp <?php echo number_format($h->harga_reservasi,0,'.','.') ?>/hari</div>
 							<div class="row mt-4">
 								<h3>Fasilitas :</h3>
 								
@@ -27,7 +27,7 @@
 						</div>
 						<div class="card-footer">
 							<button type="button" class="btn btn-primary m-4" data-toggle="modal" data-target="#modalUbah" id="editHarga"
-							data-id="<?php echo $h->id_gedung ?>" data-fasilitas="<?php echo $h->fasilitas ?>" data-nama="<?php echo $h->nama_gedung?>" data-harga = "<?php echo $h->harga_sewa ?>">
+							data-id="<?php echo $h->id_gedung ?>" data-fasilitas="<?php echo $h->fasilitas ?>" data-nama="<?php echo $h->nama_gedung?>" data-harga = "<?php echo $h->harga_reservasi ?>">
 							<i class="fas fa-edit"></i> &nbsp;Edit Layanan
 						</button> 
 						<a href="<?php echo base_url('admin/hapusHarga/'.$h->id_gedung) ?>" type="button" class="btn btn-danger m-4">

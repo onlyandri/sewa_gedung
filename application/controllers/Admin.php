@@ -19,22 +19,22 @@ class Admin extends CI_Controller {
 	public function index(){
 		$bln = date("m");
 		$bln2 = date("m");
-		$data['pengguna_sekarang'] = $this->db->query("SELECT count(id_penyewa) as jumlah_penyewa FROM penyewa where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
+		$data['pengguna_sekarang'] = $this->db->query("SELECT count(id_pelanggan) as jumlah_pelanggan FROM pelanggan where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
 
-		$data['pengguna_kemarin'] = $this->db->query("SELECT count(id_penyewa) as jumlah_penyewa FROM penyewa where status = 4 OR status = 3 and YEAR(tgl_mulai) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
+		$data['pengguna_kemarin'] = $this->db->query("SELECT count(id_pelanggan) as jumlah_pelanggan FROM pelanggan where status = 4 OR status = 3 and YEAR(tgl_mulai) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
 			AND MONTH(tgl_mulai) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)")->row_array();
 
-		$data['pendapatan_sekarang'] = $this->db->query("SELECT sum(total_bayar) as bayar1 FROM penyewa where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
+		$data['pendapatan_sekarang'] = $this->db->query("SELECT sum(total_bayar) as bayar1 FROM pelanggan where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
 
-		$data['pendapatan_kemarin'] = $this->db->query("SELECT sum(total_bayar) as bayar2 FROM penyewa where status = 4 OR status = 3  and YEAR(tgl_mulai) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
+		$data['pendapatan_kemarin'] = $this->db->query("SELECT sum(total_bayar) as bayar2 FROM pelanggan where status = 4 OR status = 3  and YEAR(tgl_mulai) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
 			AND MONTH(tgl_mulai) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)")->row_array();
 
-		$data['paket'] = $this->db->query("SELECT *, count(id_penyewa) as jumlahPaket from penyewa p join gedung g on g.id_gedung = p.id_gedung where MONTH(p.tgl_mulai) = '$bln2' and p.status = 3 or p.status = 4 group by g.id_gedung")->result();
+		$data['paket'] = $this->db->query("SELECT *, count(id_pelanggan) as jumlahPaket from pelanggan p join gedung g on g.id_gedung = p.id_gedung where MONTH(p.tgl_mulai) = '$bln2' and p.status = 3 or p.status = 4 group by g.id_gedung")->result();
 		$data['kk'] = 'index';
 
-		$data['grafik_pendapatan'] = $this->db->query("SELECT sum(total_bayar) as bayar, MONTH(tgl_mulai) as bulan from penyewa where status = 3 or status = 4 group by month(tgl_mulai)")->result();
+		$data['grafik_pendapatan'] = $this->db->query("SELECT sum(total_bayar) as bayar, MONTH(tgl_mulai) as bulan from pelanggan where status = 3 or status = 4 group by month(tgl_mulai)")->result();
 
-		$data['grafik_pengguna'] = $this->db->query("SELECT count(id_penyewa) as pengguna, MONTH(tgl_mulai) as bulan from penyewa where status = 3 or status = 4 group by month(tgl_mulai)")->result();
+		$data['grafik_pengguna'] = $this->db->query("SELECT count(id_pelanggan) as pengguna, MONTH(tgl_mulai) as bulan from pelanggan where status = 3 or status = 4 group by month(tgl_mulai)")->result();
 
 		$this->load->view('admin/template/header',$data);
 		$this->load->view('admin/pemilik/dashboard',$data);
@@ -174,7 +174,7 @@ class Admin extends CI_Controller {
 		$query1 = $this->db->query("INSERT INTO GEDUNG VALUES(null,'$nama','$harga','$fasilitas')");
 
 		if ($query1) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga sewa berhasil ditambahkan</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga reservasi berhasil ditambahkan</div>');
 			header('location:'.base_url().'admin/kelolaHarga');
 		}
 	}
@@ -185,10 +185,10 @@ class Admin extends CI_Controller {
 		$harga = $this->input->post("harga");
 		$fasilitas = $this->input->post("fasilitas");
 
-		$query1 = $this->db->query("UPDATE gedung SET nama_gedung = '$nama', harga_sewa = '$harga', fasilitas = '$fasilitas' where id_gedung = $id");
+		$query1 = $this->db->query("UPDATE gedung SET nama_gedung = '$nama', harga_reservasi = '$harga', fasilitas = '$fasilitas' where id_gedung = $id");
 
 		if ($query1) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga sewa berhasil diubah</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga reservasi berhasil diubah</div>');
 			header('location:'.base_url().'admin/kelolaHarga');
 		}
 	}
@@ -207,8 +207,8 @@ class Admin extends CI_Controller {
 
 	public function laporan_keuangan(){
 		$bln = date('m');
-		$data['keuangan_lapor'] = $this->db->query("SELECT * FROM PENYEWA  p join gedung g on g.id_gedung = p.id_gedung where  MONTH(p.tgl_mulai) = '$bln' and p.status = 3 or p.status = 4")->result();
-		$data['pendapatan_sekarang'] = $this->db->query("SELECT sum(total_bayar) as bayar1 FROM penyewa where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
+		$data['keuangan_lapor'] = $this->db->query("SELECT * FROM pelanggan  p join gedung g on g.id_gedung = p.id_gedung where  MONTH(p.tgl_mulai) = '$bln' and p.status = 3 or p.status = 4")->result();
+		$data['pendapatan_sekarang'] = $this->db->query("SELECT sum(total_bayar) as bayar1 FROM pelanggan where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
 		$data['kk'] = 'keuangan';
 		$this->load->view('admin/template/header',$data);
 		$this->load->view('admin/pemilik/laporan_keuangan',$data);

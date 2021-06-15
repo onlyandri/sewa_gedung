@@ -10,7 +10,7 @@
                    <div class="section-tittle text-center mb-80">
                     <h4>Cari Info Reservasi</h4>
                 </div>
-                <form class="form-contact contact_form" action="<?php echo base_url('user/bukti') ?>" method="post">
+                <form class="form-contact contact_form" action="<?php echo base_url('user/buktireservasi') ?>" method="post">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">

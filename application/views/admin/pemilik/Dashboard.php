@@ -1,3 +1,4 @@
+
 <section class="content">
 
   <div class="container-fluid">
@@ -58,8 +59,8 @@
               $a = $pendapatan_sekarang['bayar1'];
               $b = $pendapatan_kemarin['bayar2'];
 
-              $c = $pengguna_sekarang['jumlah_penyewa'];
-              $d = $pengguna_kemarin['jumlah_penyewa'];
+              $c = $pengguna_sekarang['jumlah_pelanggan'];
+              $d = $pengguna_kemarin['jumlah_pelanggan'];
 
               if($a == null or $a == 0 or $a == ''){
                 $a = 1;
@@ -106,10 +107,10 @@
                 $iconPendapatan = 'fa-caret-down';
               }
 
-              if( $pengguna_sekarang['jumlah_penyewa'] > $pengguna_kemarin['jumlah_penyewa']){
+              if( $pengguna_sekarang['jumlah_pelanggan'] > $pengguna_kemarin['jumlah_pelanggan']){
                 $textPengguna = 'text-success';
                 $iconPengguna = 'fa-caret-up';
-              }else if($pengguna_sekarang['jumlah_penyewa'] == $pengguna_kemarin['jumlah_penyewa']){
+              }else if($pengguna_sekarang['jumlah_pelanggan'] == $pengguna_kemarin['jumlah_pelanggan']){
                 $iconPengguna = 'fa-caret-right';
                 $textPengguna = 'text-warning';
               }else{
@@ -120,7 +121,7 @@
               <div class="col-sm-6 col-6">
                 <div class="description-block border-right">
                  <span class="description-percentage <?php echo $textPengguna ?>"><i class="fas <?php echo $iconPengguna ?>"></i> <?php echo $perPengguna ?>%</span>
-                 <h5 class="description-header"><?php echo $pengguna_sekarang['jumlah_penyewa'] ?> pengguna</h5>
+                 <h5 class="description-header"><?php echo $pengguna_sekarang['jumlah_pelanggan'] ?> pengguna</h5>
                  <span class="description-text">TOTAL PENGGUNA GEDUNG BULAN INI</span>
                </div>
                <!-- /.description-block -->

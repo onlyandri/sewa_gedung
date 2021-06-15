@@ -219,7 +219,7 @@
 
     $.ajax({
 
-      url:"<?= base_url(); ?>pengelola/cariPenyewa",
+      url:"<?= base_url(); ?>pengelola/caripelanggan",
       method:"POST",
       data:{nomor : nomor,nik : nik},
       success:function(data){

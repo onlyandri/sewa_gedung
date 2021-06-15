@@ -24,7 +24,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input class="form-control valid" name="nama" id="nama" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama Lengkap'" placeholder="Nama Lengkap" value="<?php echo $bukti['nama_penyewa'] ?>" readonly>
+                            <input class="form-control valid" name="nama" id="nama" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama Lengkap'" placeholder="Nama Lengkap" value="<?php echo $bukti['nama_pelanggan'] ?>" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -60,7 +60,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Lama Reservasi</label>
-                            <input class="form-control valid" name="lama_sewa" id="lama_sewa" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" value="<?php echo $bukti['lama_sewa'] ?> hari" readonly>
+                            <input class="form-control valid" name="lama_reservasi" id="lama_reservasi" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'terisi otomatis saat menginput tanggal Akhir'" placeholder="Terisi otomatis saat menginput tanggal Akhir" value="<?php echo $bukti['lama_reservasi'] ?> hari" readonly>
                         </div>
                     </div>
                     <div class="col-6">
@@ -71,7 +71,7 @@
                  </div>
              </div>
              <div class="form-group mt-3">
-                <a href="<?php echo base_url('user/cetakBukti/'.$bukti['nomor_sewa']) ?>" type="submit" class="button boxed-btn">cetak bukti</a>
+                <a href="<?php echo base_url('user/cetakBukti/'.$bukti['nomor_reservasi']) ?>" type="submit" class="button boxed-btn">cetak bukti</a>
             </div>
         </form>
     </div>

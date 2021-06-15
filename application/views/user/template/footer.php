@@ -80,15 +80,15 @@
     }
 
     const tgl = Math.round(Math.round((tgl_akhir.getTime() - tgl_awal.getTime()) / (oneDay)));
-    const lama_sewa =tgl + 1;
-    $('#lama_sewa').val(lama_sewa +' hari');
-    $('#lama_sewa1').val(lama_sewa);
+    const lama_reservasi =tgl + 1;
+    $('#lama_reservasi').val(lama_reservasi +' hari');
+    $('#lama_reservasi1').val(lama_reservasi);
     $.ajax({
 
       url:"<?= base_url(); ?>user/bayar",
       method:"POST",
       dataType : 'json',
-      data:{lama_sewa : lama_sewa,id_gedung : id_gedung},
+      data:{lama_reservasi : lama_reservasi,id_gedung : id_gedung},
       success:function(data){
         $('#bayar').val(data.bayar);
         $('#total_bayar').val('Rp '+data.totBayar);
@@ -118,15 +118,15 @@
   }
 
   const tgl = Math.round(Math.round((tgl_akhir.getTime() - tgl_awal.getTime()) / (oneDay)));
-  const lama_sewa =tgl + 1;
-  $('#lama_sewa').val(lama_sewa +' hari');
-  $('#lama_sewa1').val(lama_sewa);
+  const lama_reservasi =tgl + 1;
+  $('#lama_reservasi').val(lama_reservasi +' hari');
+  $('#lama_reservasi1').val(lama_reservasi);
   $.ajax({
 
     url:"<?= base_url(); ?>user/bayar",
     method:"POST",
     dataType : 'json',
-    data:{lama_sewa : lama_sewa,id_gedung : id_gedung},
+    data:{lama_reservasi : lama_reservasi,id_gedung : id_gedung},
     success:function(data){
       $('#bayar').val(data.bayar);
       $('#total_bayar').val('Rp '+data.totBayar);
@@ -154,17 +154,17 @@
     var tgl = Math.round(Math.round((tgl_akhir.getTime() - tgl_awal.getTime()) / (oneDay)));
     }
 
-    var lama_sewa =tgl + 1;
+    var lama_reservasi =tgl + 1;
 
-    $('#lama_sewa').val(lama_sewa +' hari');
-    $('#lama_sewa1').val(lama_sewa);
+    $('#lama_reservasi').val(lama_reservasi +' hari');
+    $('#lama_reservasi1').val(lama_reservasi);
 
     $.ajax({
 
     url:"<?= base_url(); ?>user/bayar",
     method:"POST",
     dataType : 'json',
-    data:{lama_sewa : lama_sewa,id_gedung : id_gedung},
+    data:{lama_reservasi : lama_reservasi,id_gedung : id_gedung},
     success:function(data){
       $('#bayar').val(data.bayar);
       $('#total_bayar').val('Rp '+data.totBayar);
@@ -188,7 +188,7 @@
     if(nomor == '' || nik == ''){
        alert('Isi nomor penyewa dan nik terlebih dahulu')
     }else{
-    var url = "<?php echo base_url('user/buktiSewa/:nomor/:nik') ?>"
+    var url = "<?php echo base_url('user/buktireservasi/:nomor/:nik') ?>"
     url = url.replace(':nomor', nomor)
     url = url.replace(':nik', nik)
     $('#cari').attr('href', url)

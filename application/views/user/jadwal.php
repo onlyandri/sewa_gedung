@@ -36,15 +36,15 @@
                 </div>
                 <div class="col-md-4">
                   <div style="height: 15px; width: 80px; border-radius: 30px;background-color: #0073b7"></div>
-                  <p>Pelanggan belum terkonfirmasi, tanggal masih bisa disewa</p>
+                  <p>Pelanggan belum terkonfirmasi, tanggal masih bisa direservasi</p>
                 </div>
                  <div class="col-md-4">
                   <div style="height: 15px; width: 80px; border-radius: 30px;background-color: #f56954"></div>
-                  <p>Pelanggan dibatalkan, terkonfirmasi Pelanggan lain. kemungkinan tanggal masih bisa di sewa</p>
+                  <p>Pelanggan dibatalkan, terkonfirmasi Pelanggan lain. kemungkinan tanggal masih bisa di reservasi</p>
                 </div>
                  <div class="col-md-4">
                   <div style="height: 15px; width: 80px; border-radius: 30px;background-color: #00a65a"></div>
-                  <p>Pelanggan telah terkonfirmasi, tanggal tidak bisa disewa</p>
+                  <p>Pelanggan telah terkonfirmasi, tanggal tidak bisa direservasi</p>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@
 
 
        {
-        title          : '<?php echo $tg->nomor_sewa ?> : <?php echo $status ?>',
+        title          : '<?php echo $tg->nomor_reservasi ?> : <?php echo $status ?>',
         start          : new Date(<?php echo $tg->yearm ?>, <?php echo $tg->monthm ?> -1, <?php echo $tg->daym ?>),
         end            : new Date(<?php echo $tg->years ?>, <?php echo $tg->months ?> -1, <?php echo $tg->days +1 ?>),
           backgroundColor: '<?php echo $color ?>', //red

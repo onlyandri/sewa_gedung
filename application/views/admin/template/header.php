@@ -132,7 +132,7 @@
             </a>
           </li>
             <li class="nav-item">
-            <a href="<?php echo base_url('pengelola/kelola_penyewa') ?>" class="nav-link  <?php echo $kk == 'kelolaPenyewa' ? 'active' : '' ?>">
+            <a href="<?php echo base_url('pengelola/kelola_pelanggan') ?>" class="nav-link  <?php echo $kk == 'kelolaPenyewa' ? 'active' : '' ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Kelola Penyewa

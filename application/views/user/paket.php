@@ -31,7 +31,7 @@
                                 <ul>
                                     <li><?php echo $value->keterangan ?><li>
                                 </ul>
-                                <a href="<?php echo base_url('user/sewa/0') ?>" class="btn card-btn1">Mulai Reservasi</a>
+                                <a href="<?php echo base_url('user/reservasi/0') ?>" class="btn card-btn1">Mulai Reservasi</a>
                             </div>
                         </div>
                     </div>

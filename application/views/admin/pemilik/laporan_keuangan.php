@@ -17,7 +17,7 @@
 											<th>NOMOR RESERVASI</th>
 											<th>LAYANAN</th>
 											<th>TANGGAL</th>
-											<th>LAMA SEWA</th>
+											<th>LAMA RESERVASI</th>
 											<th>STATUS</th>
 											<th>TOTAL BAYAR</th>
 										</tr>
@@ -35,10 +35,10 @@
 											?>
 											<tr>
 												<td><?php echo $no ?></td>
-												<td><?= $k->nomor_sewa ?></td>												
+												<td><?= $k->nomor_reservasi ?></td>												
 												<td><?= $k->nama_gedung?></td>
 												<td><?= $k->tgl_mulai?></td>
-												<td><?= $k->lama_sewa?> hari</td>
+												<td><?= $k->lama_reservasi?> hari</td>
 												<td><?= $status?></td>												
 												<td>Rp <?= number_format($k->total_bayar,0,'.','.')?></td>
 											</tr>
