@@ -57,7 +57,7 @@
         <h5> : &nbsp <?php echo $bukti['nik'] ?> </h5>
         <h5 style="text-transform: capitalize;"> : &nbsp <?php echo $bukti['nama_pelanggan'] ?> </h5>
         <h5> : &nbsp <?php echo $bukti['no_hp'] ?></h5>
-        <h5 style="text-transform: capitalize;"> : &nbsp <?php echo $bukti['nama_gedung'] ?> </h5>
+        <h5 style="text-transform: capitalize;"> : &nbsp <?php echo $bukti['nama_layanan'] ?> </h5>
         <h5> : &nbsp <?php echo $bukti['tgl_mulai'] ?></h5>
         <h5> : &nbsp <?php echo $bukti['tgl_akhir'] ?> </h5>
         <h5> : &nbsp <?php echo $bukti['lama_reservasi'] ?> hari</h5>

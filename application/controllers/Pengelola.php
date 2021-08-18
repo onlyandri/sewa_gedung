@@ -33,7 +33,7 @@ class Pengelola extends CI_Controller {
 		$tombol = '';
 		$tombol2 = '';
 
-		$query = $this->db->query("SELECT * FROM pelanggan p join gedung g on g.id_gedung = p.id_gedung WHERE p.nomor_reservasi = '$nomor' and p.nik = '$nik'")->row_array();
+		$query = $this->db->query("SELECT * FROM pelanggan p join layanan g on g.id_layanan = p.id_layanan WHERE p.nomor_reservasi = '$nomor' and p.nik = '$nik'")->row_array();
 
 		if($query){
 
@@ -78,7 +78,7 @@ class Pengelola extends CI_Controller {
 			<div class="card">
 			<!-- /.card-header -->
 			<div class="card-body">
-			<div class="h4 text-center">Data pelanggan Gedung</div>
+			<div class="h4 text-center">Data pelanggan layanan</div>
 			<div class="h4"></div>
 			<div class="row mt-5">
 			<div class="col-xs-5" style="right: 0">
@@ -98,7 +98,7 @@ class Pengelola extends CI_Controller {
 			<h5> &nbsp :  &nbsp '.$query['nik'].'<h5>
 			<h5 style="text-transform: capitalize;"> &nbsp :  &nbsp '.$query['nama_pelanggan'].'</h5>
 			<h5> &nbsp :  &nbsp '.$query['no_hp'].' </h5>
-			<h5> &nbsp :  &nbsp '.$query['nama_gedung'].'</h5>
+			<h5> &nbsp :  &nbsp '.$query['nama_layanan'].'</h5>
 			<h5> &nbsp :  &nbsp '.$query['tgl_mulai'].'</h5>
 			<h5> &nbsp :  &nbsp '.$query['tgl_akhir'].'</h5>
 			<h5> &nbsp :  &nbsp '.$query['lama_reservasi'].' Hari</h5>
@@ -182,7 +182,7 @@ class Pengelola extends CI_Controller {
 
 	public function cetakBukti($nomor){
 
-		$data['bukti'] = $this->db->query("SELECT * from pelanggan p join gedung g on p.id_gedung = g.id_gedung where p.nomor_reservasi = '$nomor'")->row_array();
+		$data['bukti'] = $this->db->query("SELECT * from pelanggan p join layanan g on p.id_layanan = g.id_layanan where p.nomor_reservasi = '$nomor'")->row_array();
 
 		$this->load->view('admin/cetakBukti',$data);
 	}
@@ -208,10 +208,80 @@ class Pengelola extends CI_Controller {
 	}
 
 	public function kelola_pelanggan(){
-		$data['kk'] = 'kelolapelanggan';
-		$data['pelanggan'] = $this->db->query("SELECT * FROM pelanggan p join gedung g on p.id_gedung = g.id_gedung")->result();
+		$data['kk'] = 'kelolaPelanggan';
+		$data['pelanggan'] = $this->db->query("SELECT * FROM pelanggan p join layanan g on p.id_layanan = g.id_layanan")->result();
 		$this->load->view('admin/template/header',$data);
 		$this->load->view('admin/pengelola/kelola_pelanggan');
 		$this->load->view('admin/template/footer');
+	}
+
+	public function kelola_fasilitas(){
+		$data['kk'] = 'kelolafasilitas';
+
+		$data['fasilitas'] = $this->db->query("SELECT * from fasilitas")->result();
+
+		$this->load->view('admin/template/header',$data);
+		$this->load->view('admin/pengelola/kelola_fasilitas');
+		$this->load->view('admin/template/footer');
+	}
+
+	public function tambah_fasilitas(){
+
+		$data['kk'] = 'kelolafasilitas';
+
+		$this->load->view('admin/template/header',$data);
+		$this->load->view('admin/pengelola/tambah_fasilitas');
+		$this->load->view('admin/template/footer');
+
+	}
+
+	public function simpanFasilitas(){
+
+		if(!empty($_FILES['gambar']['name'])){
+			$config['upload_path'] = './upload/';
+            //restrict uploads to this mime types
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = 20480;
+			$config['file_name'] = $_FILES['gambar']['name'];
+
+
+            //Load upload library and initialize configuration
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+
+			$this->upload->do_upload('gambar');
+			$uploadGambar = $this->upload->data();
+			$filename = $uploadGambar['file_name'];
+
+			$file['nama_fasilitas'] = $this->input->post('nama_fasilitas');
+			$file['deskripsi'] = $this->input->post('deskripsi');
+			$file['gambar'] = $filename;
+			$query = $this->db->insert('fasilitas',$file);
+			if($query){
+				header('location:'.base_url().'pengelola/kelola_fasilitas');
+				$this->session->set_flashdata('success','fasilitas berhasil ditambahkan');
+			}
+			else{
+				header('location:'.base_url().'pengelola/tambah_fasilitas');
+				$this->session->set_flashdata('error','File uploaded but not inserted to database');
+			}
+		}else{
+ 
+			header('location:'.base_url().'pengelola/tambah_fasilitas');
+			$this->session->set_flashdata('error','gagal mengunggah filet terlalu tidak valid');
+		}
+
+	}
+
+	public function  hapusFasilitas($id){
+		$query = $this->db->query("DELETE FROM fasilitas where id_fasilitas = $id");
+
+		if($query){
+			header('location:'.base_url().'pengelola/kelola_fasilitas');
+			$this->session->set_flashdata('success','sukses hapus');
+		}else{
+			header('location:'.base_url().'pengelola/kelola_fasilitas');
+			$this->session->set_flashdata('error','gagal');
+		}
 	}
 }

@@ -148,7 +148,7 @@
            <div class="col-sm-6 col-6">
             <div class="description-block border-right">
              <h5 class="description-header"> <?php echo $pk->jumlahPaket ?> Pengguna</h5>
-             <span class="description-text"><?php echo $pk->nama_gedung ?></span>
+             <span class="description-text"><?php echo $pk->nama_layanan ?></span>
            </div>
            <!-- /.description-block -->
          </div>

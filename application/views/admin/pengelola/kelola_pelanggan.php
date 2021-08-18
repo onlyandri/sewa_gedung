@@ -65,7 +65,7 @@
                         <td><?= $pw->nomor_reservasi ?></td>
                         <td><?= $pw->nik ?></td>
                         <td><?= $pw->nama_pelanggan?></td>
-                        <td><?= $pw->nama_gedung ?></td>
+                        <td><?= $pw->nama_layanan ?></td>
                         <td><?= $pw->lama_reservasi ?> hari</td>
                         <td><?= $pw->tgl_mulai ?> s/d <?php echo $pw->tgl_akhir ?></td>
                         <td><?= $status ?></td>

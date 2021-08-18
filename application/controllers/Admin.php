@@ -29,7 +29,7 @@ class Admin extends CI_Controller {
 		$data['pendapatan_kemarin'] = $this->db->query("SELECT sum(total_bayar) as bayar2 FROM pelanggan where status = 4 OR status = 3  and YEAR(tgl_mulai) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)
 			AND MONTH(tgl_mulai) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)")->row_array();
 
-		$data['paket'] = $this->db->query("SELECT *, count(id_pelanggan) as jumlahPaket from pelanggan p join gedung g on g.id_gedung = p.id_gedung where MONTH(p.tgl_mulai) = '$bln2' and p.status = 3 or p.status = 4 group by g.id_gedung")->result();
+		$data['paket'] = $this->db->query("SELECT *, count(id_pelanggan) as jumlahPaket from pelanggan p join layanan g on g.id_layanan = p.id_layanan where MONTH(p.tgl_mulai) = '$bln2' and p.status = 3 or p.status = 4 group by g.id_layanan")->result();
 		$data['kk'] = 'index';
 
 		$data['grafik_pendapatan'] = $this->db->query("SELECT sum(total_bayar) as bayar, MONTH(tgl_mulai) as bulan from pelanggan where status = 3 or status = 4 group by month(tgl_mulai)")->result();
@@ -159,7 +159,7 @@ class Admin extends CI_Controller {
 
 	public function kelolaHarga(){
 		$data['kk'] = 'harga';
-		$data['harga'] = $this->db->query("SELECT * FROM gedung")->result();
+		$data['harga'] = $this->db->query("SELECT * FROM layanan")->result();
 		$this->load->view('admin/template/header',$data);
 		$this->load->view('admin/pemilik/kelola_harga',$data);
 		$this->load->view('admin/template/footer');
@@ -167,34 +167,89 @@ class Admin extends CI_Controller {
 
 	public function simpanHarga(){
 
-		$nama = $this->input->post("nama_gedung");
-		$harga = $this->input->post("harga");
-		$fasilitas = $this->input->post("fasilitas");
+		if(!empty($_FILES['gambar']['name'])){
+			$config['upload_path'] = './upload/layanan/';
+            //restrict uploads to this mime types
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = 20480;
+			$config['file_name'] = $_FILES['gambar']['name'];
 
-		$query1 = $this->db->query("INSERT INTO GEDUNG VALUES(null,'$nama','$harga','$fasilitas')");
 
-		if ($query1) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga reservasi berhasil ditambahkan</div>');
+            //Load upload library and initialize configuration
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+
+			$this->upload->do_upload('gambar');
+			$uploadGambar = $this->upload->data();
+			$filename = $uploadGambar['file_name'];
+
+			$file['nama_layanan'] = $this->input->post("nama_layanan");
+			$file['deskripsi'] = $this->input->post('deskripsi');
+			$file['harga_reservasi'] = $this->input->post('harga');
+			$file['fasilitas'] = $this->input->post('fasilitas');
+			$file['gambar'] = $filename;
+			$query = $this->db->insert('layanan',$file);
+			if($query){
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga reservasi berhasil ditambahkan</div>');
+				header('location:'.base_url().'admin/kelolaHarga');
+			}
+			else{
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">harga reservasi gagal ditambahkan</div>');
+				header('location:'.base_url().'admin/kelolaHarga');
+			}
+		}else{
+
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">harga reservasi gagal ditambahkan</div>');
 			header('location:'.base_url().'admin/kelolaHarga');
 		}
 	}
 
 	public function editHarga($id){
 
-		$nama = $this->input->post("nama_gedung");
-		$harga = $this->input->post("harga");
-		$fasilitas = $this->input->post("fasilitas");
+		$query12 = $this->db->query("SELECT gambar from layanan where id_layanan = $id")->row_array();
 
-		$query1 = $this->db->query("UPDATE gedung SET nama_gedung = '$nama', harga_reservasi = '$harga', fasilitas = '$fasilitas' where id_gedung = $id");
+		$gbr1 = $query12['gambar'];
 
-		if ($query1) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga reservasi berhasil diubah</div>');
+		if(!empty($_FILES['gambar']['name'])){
+			$config['upload_path'] = './upload/layanan/';
+            //restrict uploads to this mime types
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = 20480;
+			$config['file_name'] = $_FILES['gambar']['name'];
+
+
+            //Load upload library and initialize configuration
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+
+			$this->upload->do_upload('gambar');
+			$uploadGambar = $this->upload->data();
+			$filename = $uploadGambar['file_name'];
+
+			$nama = $this->input->post("nama_layanan");
+			$harga = $this->input->post("harga");
+			$fasilitas = $this->input->post("fasilitas");
+			$deskripsi = $this->input->post("deskripsi");
+			$gbr = $filename;
+			unlink(FCPATH . 'upload/layanan/' . $gbr1);
+			$query = $this->db->query("UPDATE layanan SET nama_layanan = '$nama', harga_reservasi = '$harga', fasilitas = '$fasilitas',deskripsi='$deskripsi',gambar='$gbr' where id_layanan = $id");
+			if($query){
+				$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">harga reservasi berhasil diubah</div>');
+				header('location:'.base_url().'admin/kelolaHarga');
+			}
+			else{
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">isi reservasi gagal diubah</div>');
+				header('location:'.base_url().'admin/kelolaHarga');
+			}
+		}else{
+
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">gambar reservasi gagal diubah</div>');
 			header('location:'.base_url().'admin/kelolaHarga');
 		}
 	}
 
 	public function hapusHarga($id){
-		$query = $this->db->query("DELETE FROM gedung where id_gedung = $id");
+		$query = $this->db->query("DELETE FROM layanan where id_layanan = $id");
 
 		if($query){
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">data layanan Berhasil dihapus</div>');
@@ -207,7 +262,7 @@ class Admin extends CI_Controller {
 
 	public function laporan_keuangan(){
 		$bln = date('m');
-		$data['keuangan_lapor'] = $this->db->query("SELECT * FROM pelanggan  p join gedung g on g.id_gedung = p.id_gedung where  MONTH(p.tgl_mulai) = '$bln' and p.status = 3 or p.status = 4")->result();
+		$data['keuangan_lapor'] = $this->db->query("SELECT * FROM pelanggan  p join layanan g on g.id_layanan = p.id_layanan where  MONTH(p.tgl_mulai) = '$bln' and p.status = 3 or p.status = 4")->result();
 		$data['pendapatan_sekarang'] = $this->db->query("SELECT sum(total_bayar) as bayar1 FROM pelanggan where status = 4 OR status = 3 and MONTH(tgl_mulai) = '$bln'")->row_array();
 		$data['kk'] = 'keuangan';
 		$this->load->view('admin/template/header',$data);

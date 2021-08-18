@@ -16,15 +16,24 @@ class User extends CI_Controller {
 		$data['nav'] ='home';
 		$this->session->set_userdata(['nama' => '']);
 		$data['diskon'] = $this->db->query("SELECT * FROM diskon order by diskon desc limit 1")->row_array();
-		$data['gedung'] = $this->db->query("SELECT * FROM gedung")->result();
-		$data['testi'] = $this->db->query("SELECT * from testimoni t join pelanggan p on p.id_pelanggan = t.id_pelanggan join gedung g on g.id_gedung = p.id_gedung order by id_testimoni desc limit 8")->result();
+		$data['layanan'] = $this->db->query("SELECT * FROM layanan")->result();
+		$data['testi'] = $this->db->query("SELECT * from testimoni t join pelanggan p on p.id_pelanggan = t.id_pelanggan join layanan g on g.id_layanan = p.id_layanan order by id_testimoni desc limit 8")->result();
 		$this->load->view('user/template/header',$data);
 		$this->load->view('user/depan',$data);
 		$this->load->view('user/template/footer');
 	}
 
+	public function layanan2($id){
+		$data['nav'] ='fasilitas';
+		$data['layanan'] = $this->db->query("SELECT * FROM layanan where id_layanan = $id")->row_array();
+		$this->load->view('user/template/header',$data);
+		$this->load->view('user/fasilitas1');
+		$this->load->view('user/template/footer');
+	}
+
 	public function fasilitas(){
 		$data['nav'] ='fasilitas';
+		$data['fasilitas'] = $this->db->query("SELECT * FROM fasilitas")->result();
 		$this->load->view('user/template/header',$data);
 		$this->load->view('user/fasilitas');
 		$this->load->view('user/template/footer');
@@ -55,13 +64,13 @@ class User extends CI_Controller {
 		$data['kode'] = $kode_jadi;
 
 		if($id == 0){
-			$data['harga'] = $this->db->query("SELECT * FROM gedung limit 1")->row_array();
+			$data['harga'] = $this->db->query("SELECT * FROM layanan limit 1")->row_array();
 		}else{
-			$data['harga'] = $this->db->query("SELECT * FROM gedung where id_gedung = $id")->row_array();
+			$data['harga'] = $this->db->query("SELECT * FROM layanan where id_layanan = $id")->row_array();
 		}
 		$data['diskon'] = $this->db->query('SELECT * FROM diskon')->result();
-		$data['harga1'] = $this->db->query("SELECT * FROM gedung")->result();
-		$data['gedung_id'] = $id;
+		$data['harga1'] = $this->db->query("SELECT * FROM layanan")->result();
+		$data['layanan_id'] = $id;
 		$this->load->view('user/template/header',$data);
 		$this->load->view('user/reservasi',$data);
 		$this->load->view('user/template/footer');
@@ -71,13 +80,13 @@ class User extends CI_Controller {
 		$data['nav'] ='home';
 		$lama_reservasi = $this->input->post('lama_reservasi');
 
-		$id_gedung = $this->input->post('id_gedung');
+		$id_layanan = $this->input->post('id_layanan');
 
 		$output = '';
 		$bayar = 0;
 
 		$query = $this->db->query("SELECT * FROM diskon WHERE HARI <= $lama_reservasi ORDER BY HARI desc LIMIT 1")->row_array();
-		$query1 = $this->db->query("SELECT * FROM gedung WHERE ID_GEDUNG = $id_gedung")->row_array();
+		$query1 = $this->db->query("SELECT * FROM layanan WHERE id_layanan = $id_layanan")->row_array();
 
 		$diskon = $query1['harga_reservasi'] * $lama_reservasi * $query['diskon'] / 100;
 		$tbayar =$query1['harga_reservasi'] * $lama_reservasi;
@@ -106,7 +115,7 @@ class User extends CI_Controller {
 		$tgl_akhir = $this->input->post('tgl_akhir');
 		$lama_reservasi = $this->input->post('lama_reservasi1');
 		$keterangan = $this->input->post('keterangan');
-		$id_gedung = $this->input->post('gedung');
+		$id_layanan = $this->input->post('layanan');
 		$no_hp = $this->input->post('telepon');
 		$bayar = $this->input->post('bayar');
 
@@ -124,12 +133,12 @@ class User extends CI_Controller {
 		// $perbedaan = $tgl1->diff($sekarang)->d;
 		if($perbedaan < 0){
 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">tanggal sudah kelewat</div>');
-			header('location:'.base_url().'user/reservasi/'.$id_gedung);
+			header('location:'.base_url().'user/reservasi/'.$id_layanan);
 		}else{
 
 			if($lama_reservasi <= 0){
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">masukan tanggal dengan benar</div>');
-				header('location:'.base_url().'user/reservasi/'.$id_gedung);
+				header('location:'.base_url().'user/reservasi/'.$id_layanan);
 			}else{
 
 				for ($i=$tgl1; $i <= $tgl2  ; $i->modify('+1 day')) { 
@@ -142,11 +151,11 @@ class User extends CI_Controller {
 				}
 
 				if($query2->num_rows() > 0){
-					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gedung sudah ada pelanggan pada tanggal tersebut</div>');
-					header('location:'.base_url().'user/reservasi/'.$id_gedung);
+					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">layanan sudah ada pelanggan pada tanggal tersebut</div>');
+					header('location:'.base_url().'user/reservasi/'.$id_layanan);
 				}else{
 
-					$query = $this->db->query("INSERT into pelanggan VALUES(null,'$nomor_reservasi',1,$id_gedung,'$nik','$nama_pelanggan','$tgl_mulai','$tgl_akhir','$bayar','$lama_reservasi','$no_hp','$keterangan',1)");
+					$query = $this->db->query("INSERT into pelanggan VALUES(null,'$nomor_reservasi',1,$id_layanan,'$nik','$nama_pelanggan','$tgl_mulai','$tgl_akhir','$bayar','$lama_reservasi','$no_hp','$keterangan',1)");
 
 					if($query){
 						$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">pelanggan Berhasil ditambahkan</div>');
@@ -161,7 +170,7 @@ class User extends CI_Controller {
 
 	public function buktireservasi($nomor,$nik){
 		$data['nav'] ='home';
-		$query = $this->db->query("SELECT * from pelanggan p join gedung g on p.id_gedung = g.id_gedung where p.nomor_reservasi = '$nomor' and p.nik = '$nik' and p.status = 1");
+		$query = $this->db->query("SELECT * from pelanggan p join layanan g on p.id_layanan = g.id_layanan where p.nomor_reservasi = '$nomor' and p.nik = '$nik' and p.status = 1");
 		$data['bukti'] = $query->row_array();
 
 		if($query->num_rows() > 0){
@@ -176,7 +185,7 @@ class User extends CI_Controller {
 	}
 
 	public function cetakBukti($nomor){
-		$data['bukti'] = $this->db->query("SELECT * from pelanggan p join gedung g on p.id_gedung = g.id_gedung where p.nomor_reservasi = '$nomor'")->row_array();
+		$data['bukti'] = $this->db->query("SELECT * from pelanggan p join layanan g on p.id_layanan = g.id_layanan where p.nomor_reservasi = '$nomor'")->row_array();
 		$this->load->view('admin/cetakBukti',$data);
 	}
 
@@ -222,7 +231,7 @@ class User extends CI_Controller {
 				}
 			}
 		}else{
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">anda tidak bisa menambahkan testimoni, harus menyewa gedung terlebih dahulu</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">anda tidak bisa menambahkan testimoni, harus menyewa layanan terlebih dahulu</div>');
 			header('location:'.base_url().'user/hubungi/');
 		}
 	}

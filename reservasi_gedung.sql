@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2021 at 02:15 AM
+-- Generation Time: Jun 28, 2021 at 12:58 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -58,27 +58,37 @@ CREATE TABLE `fasilitas` (
   `gambar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `fasilitas`
+--
+
+INSERT INTO `fasilitas` (`id_fasilitas`, `nama_fasilitas`, `deskripsi`, `gambar`) VALUES
+(3, 'wewr', 'wer', 'covid.png');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gedung`
+-- Table structure for table `layanan`
 --
 
-CREATE TABLE `gedung` (
-  `id_gedung` int(11) NOT NULL,
-  `nama_gedung` varchar(50) NOT NULL,
+CREATE TABLE `layanan` (
+  `id_layanan` int(11) NOT NULL,
+  `nama_layanan` varchar(50) NOT NULL,
   `harga_reservasi` int(11) NOT NULL,
-  `fasilitas` text NOT NULL
+  `fasilitas` text NOT NULL,
+  `gambar` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `gedung`
+-- Dumping data for table `layanan`
 --
 
-INSERT INTO `gedung` (`id_gedung`, `nama_gedung`, `harga_reservasi`, `fasilitas`) VALUES
-(1, 'Acara Malam ini', 7000000, 'air conditioner, sound sistem, kursi futura 260 seat\r\n'),
-(4, 'Pemakaian Out Door', 20000000, 'SDA, outdoor / sebelah timur gedung, area parkir untuk acara katering'),
-(5, 'gedung haji', 2000000, 'lama tak jumpa');
+INSERT INTO `layanan` (`id_layanan`, `nama_layanan`, `harga_reservasi`, `fasilitas`, `gambar`, `deskripsi`) VALUES
+(1, 'Acara Malam ini', 7000000, 'air conditioner, sound sistem, kursi futura 260 seat\r\n', 'burger-1.jpg', 'FASILITAS YANG SANGAT BAGUS'),
+(4, 'Pemakaian Out Door', 20000000, 'SDA, outdoor / sebelah timur gedung, area parkir untuk acara katering', 'burger-2.jpg', 'germo asu dan lain-lain'),
+(5, 'gedung haji', 2000000, 'lama tak jumpa', 'dessert-2.jpg', 'LONTE YANG SANGAT NGEFUCK ANJING BANGSAT'),
+(6, 'LONTE ANJING', 90000, 'lonte sehat, lonte sakit, hiv aids, gigolo, ', 'dish-1.jpg', 'ini adalah layanan untuk melayani om om kesepian dan juga buaya darat dan laki-laki hidung belang');
 
 -- --------------------------------------------------------
 
@@ -90,7 +100,7 @@ CREATE TABLE `pelanggan` (
   `id_pelanggan` int(11) NOT NULL,
   `nomor_reservasi` varchar(12) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_gedung` int(11) NOT NULL,
+  `id_layanan` int(11) NOT NULL,
   `nik` int(11) NOT NULL,
   `nama_pelanggan` varchar(50) NOT NULL,
   `tgl_mulai` date NOT NULL,
@@ -106,7 +116,7 @@ CREATE TABLE `pelanggan` (
 -- Dumping data for table `pelanggan`
 --
 
-INSERT INTO `pelanggan` (`id_pelanggan`, `nomor_reservasi`, `id_user`, `id_gedung`, `nik`, `nama_pelanggan`, `tgl_mulai`, `tgl_akhir`, `total_bayar`, `lama_reservasi`, `no_hp`, `keterangan`, `status`) VALUES
+INSERT INTO `pelanggan` (`id_pelanggan`, `nomor_reservasi`, `id_user`, `id_layanan`, `nik`, `nama_pelanggan`, `tgl_mulai`, `tgl_akhir`, `total_bayar`, `lama_reservasi`, `no_hp`, `keterangan`, `status`) VALUES
 (32, 'PW000001', 1, 3, 1234, 'andri', '2021-03-15', '2021-03-17', 37800000, 3, '098765787', 'pernikahan anak saya', 2),
 (33, 'PW000033', 1, 4, 1234, 'rohman', '2021-03-23', '2021-03-24', 36000000, 2, '98997979', 'anak saya sunatan pak', 3),
 (34, 'pw000002', 2, 4, 1234, 'sewon', '2021-02-10', '2021-03-15', 50000000, 5, '098777', 'sunatan', 4),
@@ -205,10 +215,10 @@ ALTER TABLE `fasilitas`
   ADD PRIMARY KEY (`id_fasilitas`);
 
 --
--- Indexes for table `gedung`
+-- Indexes for table `layanan`
 --
-ALTER TABLE `gedung`
-  ADD PRIMARY KEY (`id_gedung`);
+ALTER TABLE `layanan`
+  ADD PRIMARY KEY (`id_layanan`);
 
 --
 -- Indexes for table `pelanggan`
@@ -248,13 +258,13 @@ ALTER TABLE `diskon`
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
-  MODIFY `id_fasilitas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fasilitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `gedung`
+-- AUTO_INCREMENT for table `layanan`
 --
-ALTER TABLE `gedung`
-  MODIFY `id_gedung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `layanan`
+  MODIFY `id_layanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`

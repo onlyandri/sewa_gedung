@@ -17,7 +17,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama admin</th>
+                  <th>Nama Petugas</th>
                   <th>Jabatan</th>
                   <th></th>
                 </tr>
@@ -68,14 +68,14 @@
   <div class="modal-dialog">
     <form class="modal-content" method="POST" action="<?php echo base_url('admin/simpanAdmin') ?>">
       <div class="modal-header">
-        <h4 class="modal-title">Tambah Admin</h4>
+        <h4 class="modal-title">Tambah Petugas</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
        <div class="form-group">
-          <label>Nama admin</label>
+          <label>Nama petugas</label>
           <input type="text" name="nama_admin" class="form-control" placeholder="Nama admin" required>
         </div>
         <div class="form-group">
@@ -94,15 +94,15 @@
   <div class="modal-dialog">
     <form class="modal-content" method="POST" action="">
       <div class="modal-header">
-        <h4 class="modal-title">Ubah admin</h4>
+        <h4 class="modal-title">Ubah Petugas</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
      <div class="modal-body">
        <div class="form-group">
-          <label>Nama admin</label>
-          <input type="text" name="nama_admin" id="nama_admin" class="form-control" placeholder="Nama admin" required>
+          <label>Nama Petugas</label>
+          <input type="text" name="nama_admin" id="nama_admin" class="form-control" placeholder="Nama petugas" required>
         </div>
       </div>
       <div class="modal-footer text-right">

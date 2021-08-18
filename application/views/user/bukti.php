@@ -36,7 +36,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Layanan</label>
-                            <input class="form-control valid" name="layanan" id="layanan" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukan NIK'" placeholder="Masukan NIK" value="<?php echo $bukti['nama_gedung'] ?>" readonly>
+                            <input class="form-control valid" name="layanan" id="layanan" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukan NIK'" placeholder="Masukan NIK" value="<?php echo $bukti['nama_layanan'] ?>" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -82,7 +82,7 @@
          <div class="media contact-info mt-5">
             <span class="contact-info__icon"><i class="fa fa-book"></i></span>
             <div class="media-body">
-                <h3>Serahkan tanda bukti reservasi ini ke pengelola gedung untuk mengkonfirmasi penyewaan</h3>
+                <h3>Serahkan tanda bukti reservasi ini ke pengelola layanan untuk mengkonfirmasi penyewaan</h3>
             </div>
         </div>
         <div class="media contact-info">

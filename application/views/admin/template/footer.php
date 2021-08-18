@@ -201,15 +201,17 @@
 
    $(document).on('click', '#editHarga', function () {
     var id = $(this).data('id')
-    var nama_gedung = $(this).data('nama')
+    var nama_layanan = $(this).data('nama')
     var harga_sewa = $(this).data('harga')
+    var deskripsi = $(this).data('deskripsi')
     var fasilitas = $(this).data('fasilitas')
     var url = "<?= base_url('admin/editHarga/:id') ?>"
     url = url.replace(':id', id)
     $('form').attr('action', url)
-    $('#nama_gedung').val(nama_gedung)
+    $('#nama_layanan').val(nama_layanan)
     $('#harga').val(harga_sewa)
-    $('#fasilitas').val(fasilitas)
+     $('#deskripsi').html(deskripsi)
+    $('#fasilitas').html(fasilitas)
   });
 
    $("#cariPenyewa").click(function(){

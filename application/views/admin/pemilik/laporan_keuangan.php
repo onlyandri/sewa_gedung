@@ -36,7 +36,7 @@
 											<tr>
 												<td><?php echo $no ?></td>
 												<td><?= $k->nomor_reservasi ?></td>												
-												<td><?= $k->nama_gedung?></td>
+												<td><?= $k->nama_layanan?></td>
 												<td><?= $k->tgl_mulai?></td>
 												<td><?= $k->lama_reservasi?> hari</td>
 												<td><?= $status?></td>												

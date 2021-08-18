@@ -71,7 +71,7 @@
 
     const k = $("#tgl_mulai").val();
 
-    const id_gedung = $("#gedung").val();
+    const id_layanan = $("#layanan").val();
 
     if( k == ""){
       var tgl_awal = new Date(kk);
@@ -88,7 +88,7 @@
       url:"<?= base_url(); ?>user/bayar",
       method:"POST",
       dataType : 'json',
-      data:{lama_reservasi : lama_reservasi,id_gedung : id_gedung},
+      data:{lama_reservasi : lama_reservasi,id_layanan : id_layanan},
       success:function(data){
         $('#bayar').val(data.bayar);
         $('#total_bayar').val('Rp '+data.totBayar);
@@ -108,7 +108,7 @@
    var jj = $(this).val();
    const tgl_awal = new Date($(this).val());
 
-    const id_gedung = $("#gedung").val();
+    const id_layanan = $("#layanan").val();
 
 
    if($('#tgl_akhir').val() == ''){
@@ -126,7 +126,7 @@
     url:"<?= base_url(); ?>user/bayar",
     method:"POST",
     dataType : 'json',
-    data:{lama_reservasi : lama_reservasi,id_gedung : id_gedung},
+    data:{lama_reservasi : lama_reservasi,id_layanan : id_layanan},
     success:function(data){
       $('#bayar').val(data.bayar);
       $('#total_bayar').val('Rp '+data.totBayar);
@@ -141,9 +141,9 @@
  });
 });
 
-  $('#gedung').change(function(){
+  $('#layanan').change(function(){
 
-    var id_gedung = $(this).val();
+    var id_layanan = $(this).val();
     var tgl_awal = new Date($('#tgl_mulai').val());
     var tgl_akhir = new Date($('#tgl_akhir').val());
 
@@ -164,7 +164,7 @@
     url:"<?= base_url(); ?>user/bayar",
     method:"POST",
     dataType : 'json',
-    data:{lama_reservasi : lama_reservasi,id_gedung : id_gedung},
+    data:{lama_reservasi : lama_reservasi,id_layanan : id_layanan},
     success:function(data){
       $('#bayar').val(data.bayar);
       $('#total_bayar').val('Rp '+data.totBayar);

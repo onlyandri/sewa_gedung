@@ -41,11 +41,11 @@
                         <div class="form-group ml-3">
                             <label>Pilih Layanan</label>
                             <div class="row">
-                            <select class="form-control valid select2" name="gedung" id="gedung">
+                            <select class="form-control valid select2" name="layanan" id="layanan">
                                 <?php foreach ($harga1 as $key => $value) {
                                     # code...
                                 ?>
-                                <option value="<?php echo $value->id_gedung ?>" <?= $value->id_gedung == $gedung_id ? 'selected' : ''; ?> > <?= $value->nama_gedung ?></option>
+                                <option value="<?php echo $value->id_layanan ?>" <?= $value->id_layanan == $layanan_id ? 'selected' : ''; ?> > <?= $value->nama_layanan ?></option>
                             <?php } ?>
                             </select>
                             </div>

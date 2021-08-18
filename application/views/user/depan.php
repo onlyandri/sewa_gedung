@@ -49,13 +49,13 @@
         <div class="container">
             <div class="row">
                 <?php
-                foreach ($gedung as $d) : 
+                foreach ($layanan as $d) : 
 
                    $harga = number_format($d->harga_reservasi,0,'.','.'); ?>
                    <div class="col-xl-4 col-lg-4 col-md-6" style="display: flex; flex-wrap:wrap">
                     <div class="single-card text-center mb-30" style="width: 100%">
                         <div class="card-top">
-                            <span><?= $d->nama_gedung ?></span>
+                            <span><?= $d->nama_layanan ?></span>
                             <h4 style="font-size: 30px">Rp <span><?= $harga ?></span><span>/hari</span></h4>
                         </div>
                         <div class="card-bottom">
@@ -63,8 +63,8 @@
                                 <li>Dapatkan Diskon Hingga <?php echo $diskon['diskon'] ?>%</li>
                                 <li>Minimal Reservasi <?php echo $diskon['hari'] ?> hari</li>
                                 <li><span style="font-size: 18px; font-weight:500">Fasilitas : </span><?php echo $d->fasilitas ?></li>
-                            </ul>
-                            <a href="<?php echo base_url('user/reservasi/'.$d->id_gedung) ?>" class="btn card-btn1">Reservasi</a>
+                            <a href="<?php echo base_url('user/reservasi/'.$d->id_layanan) ?>" class="btn card-btn1">Reservasi</a>
+                             <a href="<?php echo base_url('user/layanan2/'.$d->id_layanan) ?>" class="btn card-btn1">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="what-cap">
                             <h4><a href="#"><?php echo $t->nama_penyewa ?></a></h4>
-                            <h5>Layanan : <?php echo $t->nama_gedung ?></h5>
+                            <h5>Layanan : <?php echo $t->nama_layanan ?></h5>
                             <p><?php echo $t->testi ?></p>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                         <div class="app-caption">
                             <div class="section-tittle section-tittle3">
                                 <h2>Tuliskan Testimoni Anda disini</h2>
-                                <p>Bagikan kesan dan pesan baik anda setelah menyewa gedung di ha Djunaid convention </p>
+                                <p>Bagikan kesan dan pesan baik anda setelah menyewa layanan di ha Djunaid convention </p>
                                 <div class="app-btn">
                                     <a href="#" class="app-btn1"><img src="assets/img/shape/app_btn1.png" alt=""></a>
                                     <a href="#" class="app-btn2"><img src="assets/img/shape/app_btn2.png" alt=""></a>
